@@ -2,35 +2,104 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../Components/Header';
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 
 const Lessons = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
   const [lessons, setLessons] = useState([]);
+  const [progressions, setProgressions] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem('token');
+  const userId = localStorage.getItem('userId');
 
   const completedCount = lessons.filter(l => l.completed).length;
   const progressPercent = lessons.length
     ? (completedCount / lessons.length) * 100
     : 0;
 
+  const createLessonWithExercise = async () => {
+    try {
+      const newLesson = await axios.post('http://localhost:8000/api/lessons', {
+        title: "Première Leçon",
+        content: "Contenu de la leçon...",
+        difficulty: "easy"
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/ld+json'
+        }
+      });
+
+      await axios.post('http://localhost:8000/api/exercises', {
+        question: "Exercice pour " + newLesson.data.title,
+        options: ["Option 1", "Option 2", "Option 3", "Option 4"],
+        answer: "Option 1",
+        type: "qcm",
+        lesson: `/api/lessons/${newLesson.data.id}`
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/ld+json'
+        }
+      });
+
+      return newLesson.data;
+    } catch (error) {
+      console.error("Erreur création leçon/exercice:", error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/lessons`, {
+        const userRes = await axios.get(`http://localhost:8000/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        setLessons(response.data);
+        setUser(userRes.data);
+
+        // Utiliser le nouvel endpoint pour les leçons débloquées
+        const lessonsRes = await axios.get(`http://localhost:8000/api/user/${userId}/lessons-unlocked`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/ld+json'
+          }
+        });
+
+        console.log('Réponse brute des leçons:', lessonsRes);
+        console.log('Données des leçons:', lessonsRes.data);
+        let lessonsData = lessonsRes.data || [];
+
+        if (lessonsData.length === 0) {
+          const newLesson = await createLessonWithExercise();
+          lessonsData = [newLesson];
+        }
+
+        // S'assurer que toutes les leçons ont un ordre
+        lessonsData = lessonsData.map((lesson, index) => ({
+          ...lesson,
+          order: lesson.order || index + 1
+        }));
+
+        console.log('Leçons formatées:', lessonsData);
+        setLessons(lessonsData);
         setLoading(false);
-      } catch (err) {
+
+      } catch (error) {
+        console.error("Erreur:", error);
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [token]);
+    if (token && userId) {
+      fetchData();
+    } else {
+      navigate('/login');
+    }
+  }, [navigate, token, userId]);
 
   if (loading) return <div>Chargement...</div>;
 
@@ -56,7 +125,7 @@ const Lessons = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/ImmersionMode')}
+            onClick={() => navigate('/immersion-mode')}
             className="bg-[#F4E1C1] hover:bg-[#E8D4B3] text-gray-800 font-bold py-2 md:py-3 px-4 md:px-6 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-300 border-2 border-[#D4BFA0] text-sm md:text-base"
           >
             <span className="text-lg md:text-xl">🎯</span>
