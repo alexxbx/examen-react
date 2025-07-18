@@ -26,10 +26,10 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="hidden min-[1024px]:block w-100 h-64 bg-[#F4E1C1] flex space-x-4">
-        <img src="/temple.svg" alt="temple" className="absolute top-[220px] left-[100px] h-96" />
-        <img src="/shrine.svg" alt="torii" className="absolute top-[350px] left-[500px] h-64" />
-        <img src="/temple 2.svg" alt="temple" className="absolute top-[250px] right-[100px] h-96" />
+      <div className="hidden min-[1024px]:block w-100 h-64 bg-[#F4E1C1] space-x-4">
+        <img src="/TempleA.svg" alt="temple" className="absolute top-[220px] left-[100px] h-96" />
+        <img src="/Shrine.svg" alt="torii" className="absolute top-[350px] left-[500px] h-64" />
+        <img src="/TempleB.svg" alt="temple" className="absolute top-[250px] right-[100px] h-96" />
         <img src='/flower.svg' alt='flower' className='absolute bottom-8 h-6' />
         <img src='/flower.svg' alt='flower' className='absolute right-8 bottom-[100px] h-6' />
         <img src='/flower.svg' alt='flower' className='absolute bottom-2 left-60 h-6' />
