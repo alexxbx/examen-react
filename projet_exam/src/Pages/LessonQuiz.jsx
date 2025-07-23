@@ -32,7 +32,7 @@ function LessonQuiz() {
             }
 
             try {
-                const res = await axios.get('http://localhost:8000/api/exercises', {
+                const res = await axios.get('https://examen-symfony.onrender.com/api/exercises', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -64,7 +64,7 @@ function LessonQuiz() {
     useEffect(() => {
         const fetchLessonContent = async () => {
             try {
-                const res = await axios.get(`http://localhost:8000/api/lessons/${lessonId}`, {
+                const res = await axios.get(`https://examen-symfony.onrender.com/api/lessons/${lessonId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -95,7 +95,7 @@ function LessonQuiz() {
 
                     // Vérifier d'abord si une progression existe déjà
                     const existingProgression = await axios.get(
-                        `http://localhost:8000/api/progressions?user=${userId}&lesson=${lessonId}`,
+                        `https://examen-symfony.onrender.com/api/progressions?user=${userId}&lesson=${lessonId}`,
                         {
                             headers: {
                                 Authorization: `Bearer ${token}`,
@@ -133,7 +133,7 @@ function LessonQuiz() {
                         });
                     } else {
                         console.log('Création d\'une nouvelle progression');
-                        response = await axios.post('http://localhost:8000/api/progressions', progressionData, {
+                        response = await axios.post('https://examen-symfony.onrender.com/api/progressions', progressionData, {
                             headers: {
                                 Authorization: `Bearer ${token}`,
                                 'Content-Type': 'application/ld+json',
@@ -148,7 +148,7 @@ function LessonQuiz() {
 
                     // Déclencher le déblocage de la prochaine leçon
                     const unlockResponse = await axios.post(
-                        `http://localhost:8000/api/user/${userId}/unlock-next-lesson`,
+                        `https://examen-symfony.onrender.com/api/user/${userId}/unlock-next-lesson`,
                         {},
                         {
                             headers: {
@@ -164,7 +164,7 @@ function LessonQuiz() {
                     await new Promise(resolve => setTimeout(resolve, 1000));
 
                     // Forcer le rafraîchissement des données
-                    const lessonsResponse = await axios.get(`http://localhost:8000/api/user/${userId}/lessons-unlocked`, {
+                    const lessonsResponse = await axios.get(`https://examen-symfony.onrender.com/api/user/${userId}/lessons-unlocked`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                             'Content-Type': 'application/ld+json',

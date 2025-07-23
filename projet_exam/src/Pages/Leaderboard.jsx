@@ -6,7 +6,7 @@ function Leaderboard() {
     const [leaderboard, setLeaderboard] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/api/lessons-leaderboard')
+        axios.get('https://examen-symfony.onrender.com/api/lessons-leaderboard')
             .then(res => setLeaderboard(res.data))
             .catch(err => console.error(err));
     }, []);

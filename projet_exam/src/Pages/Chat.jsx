@@ -23,7 +23,7 @@ function Chat() {
 
         const fetchMessages = async () => {
             try {
-                const response = await axios.get(`http://localhost:8000/api/chat/${userId}/messages`, {
+                const response = await axios.get(`https://examen-symfony.onrender.com/api/chat/${userId}/messages`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setMessages(response.data);
@@ -47,7 +47,7 @@ function Chat() {
         setLoading(true);
         try {
             const response = await axios.post(
-                `http://localhost:8000/api/chat/${userId}/messages`,
+                `https://examen-symfony.onrender.com/api/chat/${userId}/messages`,
                 { message: newMessage },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
@@ -90,8 +90,8 @@ function Chat() {
                                 >
                                     <div
                                         className={`max-w-[70%] rounded-lg p-3 ${message.isFromUser
-                                                ? 'bg-blue-500 text-white'
-                                                : 'bg-gray-200 text-gray-800'
+                                            ? 'bg-blue-500 text-white'
+                                            : 'bg-gray-200 text-gray-800'
                                             }`}
                                     >
                                         <p className="text-sm">{message.message}</p>
@@ -119,8 +119,8 @@ function Chat() {
                                     type="submit"
                                     disabled={loading || !newMessage.trim()}
                                     className={`px-6 py-2 rounded-lg font-semibold text-white ${loading || !newMessage.trim()
-                                            ? 'bg-blue-300 cursor-not-allowed'
-                                            : 'bg-blue-600 hover:bg-blue-700'
+                                        ? 'bg-blue-300 cursor-not-allowed'
+                                        : 'bg-blue-600 hover:bg-blue-700'
                                         }`}
                                 >
                                     {loading ? 'Envoi...' : 'Envoyer'}

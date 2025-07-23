@@ -29,7 +29,7 @@ function ExerciseForm({ token, onExerciseAdded }) {
     // Dans le useEffect (version robuste)
     useEffect(() => {
         if (token) {
-            axios.get('http://localhost:8000/api/lessons', {
+            axios.get('https://examen-symfony.onrender.com/api/lessons', {
                 headers: { Authorization: `Bearer ${token}` }
             })
                 .then(res => {
@@ -65,7 +65,7 @@ function ExerciseForm({ token, onExerciseAdded }) {
         };
 
         try {
-            await axios.post('http://localhost:8000/api/exercises', payload, {
+            await axios.post('https://examen-symfony.onrender.com/api/exercises', payload, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/ld+json'

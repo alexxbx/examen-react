@@ -50,7 +50,7 @@ function RegisterForm() {
         setLoading(true);
         setMessage('');
         try {
-            await axios.post('http://localhost:8000/api/register', form);
+            await axios.post('https://examen-symfony.onrender.com/api/register', form);
             setMessage('✅ Utilisateur créé avec succès !');
             setForm({ username: '', email: '', password: '' });
             navigate('/Login');

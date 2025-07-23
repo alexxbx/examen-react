@@ -40,19 +40,19 @@ function Dashboard() {
 
                 console.log('Utilisateur admin, récupération des données...');
                 const [usersRes, lessonsRes, exercisesRes] = await Promise.all([
-                    axios.get('http://localhost:8000/api/users', {
+                    axios.get('https://examen-symfony.onrender.com/api/users', {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Accept': 'application/ld+json'
                         }
                     }),
-                    axios.get('http://localhost:8000/api/lessons', {
+                    axios.get('https://examen-symfony.onrender.com/api/lessons', {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Accept': 'application/ld+json'
                         }
                     }),
-                    axios.get('http://localhost:8000/api/exercises', {
+                    axios.get('https://examen-symfony.onrender.com/api/exercises', {
                         headers: {
                             'Authorization': `Bearer ${token}`,
                             'Accept': 'application/ld+json'
@@ -91,7 +91,7 @@ function Dashboard() {
 
     const handleAddUser = async (newUser) => {
         try {
-            const res = await axios.post('http://localhost:8000/api/register', newUser, {
+            const res = await axios.post('https://examen-symfony.onrender.com/api/register', newUser, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUsers([...users, res.data]);
@@ -105,7 +105,7 @@ function Dashboard() {
     const handleAddLesson = async (newLesson) => {
         try {
             const res = await axios.post(
-                'http://localhost:8000/api/lessons',
+                'https://examen-symfony.onrender.com/api/lessons',
                 newLesson,
                 {
                     headers: {
@@ -125,7 +125,7 @@ function Dashboard() {
 
     const handleDeleteUser = async (userId) => {
         try {
-            await axios.delete(`http://localhost:8000/api/users/${userId}`, {
+            await axios.delete(`https://examen-symfony.onrender.com/api/users/${userId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUsers(users.filter(user => user.id !== userId));
@@ -138,7 +138,7 @@ function Dashboard() {
 
     const handleDeleteLesson = async (lessonId) => {
         try {
-            await axios.delete(`http://localhost:8000/api/lessons/${lessonId}`, {
+            await axios.delete(`https://examen-symfony.onrender.com/api/lessons/${lessonId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setLessons(lessons.filter(lesson => lesson.id !== lessonId));
@@ -151,7 +151,7 @@ function Dashboard() {
 
     const handleUpdateUser = async (userId, formData) => {
         try {
-            await axios.patch(`http://localhost:8000/api/users/${userId}`, formData, {
+            await axios.patch(`https://examen-symfony.onrender.com/api/users/${userId}`, formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setUsers(users.map(user => user.id === userId ? { ...user, ...formData } : user));
@@ -164,7 +164,7 @@ function Dashboard() {
 
     const handleUpdateLesson = async (lessonId, formData) => {
         try {
-            await axios.put(`http://localhost:8000/api/lessons/${lessonId}`, formData, {
+            await axios.put(`https://examen-symfony.onrender.com/api/lessons/${lessonId}`, formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setLessons(lessons.map(lesson => lesson.id === lessonId ? { ...lesson, ...formData } : lesson));
@@ -178,7 +178,7 @@ function Dashboard() {
     const handleAddExercise = async (newExercise) => {
         try {
             const res = await axios.post(
-                'http://localhost:8000/api/exercises',
+                'https://examen-symfony.onrender.com/api/exercises',
                 newExercise,
                 {
                     headers: {
@@ -198,7 +198,7 @@ function Dashboard() {
 
     const handleDeleteExercise = async (exerciseId) => {
         try {
-            await axios.delete(`http://localhost:8000/api/exercises/${exerciseId}`, {
+            await axios.delete(`https://examen-symfony.onrender.com/api/exercises/${exerciseId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setExercises(exercises.filter(exercise => exercise.id !== exerciseId));
@@ -211,7 +211,7 @@ function Dashboard() {
 
     const handleUpdateExercise = async (exerciseId, formData) => {
         try {
-            await axios.put(`http://localhost:8000/api/exercises/${exerciseId}`, formData, {
+            await axios.put(`https://examen-symfony.onrender.com/api/exercises/${exerciseId}`, formData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setExercises(exercises.map(exercise => exercise.id === exerciseId ? { ...exercise, ...formData } : exercise));

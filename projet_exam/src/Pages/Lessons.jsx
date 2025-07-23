@@ -22,7 +22,7 @@ const Lessons = () => {
 
   const createLessonWithExercise = async () => {
     try {
-      const newLesson = await axios.post('http://localhost:8000/api/lessons', {
+      const newLesson = await axios.post('https://examen-symfony.onrender.com/api/lessons', {
         title: "Première Leçon",
         content: "Contenu de la leçon...",
         difficulty: "easy"
@@ -33,7 +33,7 @@ const Lessons = () => {
         }
       });
 
-      await axios.post('http://localhost:8000/api/exercises', {
+      await axios.post('https://examen-symfony.onrender.com/api/exercises', {
         question: "Exercice pour " + newLesson.data.title,
         options: ["Option 1", "Option 2", "Option 3", "Option 4"],
         answer: "Option 1",
@@ -56,13 +56,13 @@ const Lessons = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRes = await axios.get(`http://localhost:8000/api/users/${userId}`, {
+        const userRes = await axios.get(`https://examen-symfony.onrender.com/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(userRes.data);
 
         // Utiliser le nouvel endpoint pour les leçons débloquées
-        const lessonsRes = await axios.get(`http://localhost:8000/api/user/${userId}/lessons-unlocked`, {
+        const lessonsRes = await axios.get(`https://examen-symfony.onrender.com/api/user/${userId}/lessons-unlocked`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/ld+json'

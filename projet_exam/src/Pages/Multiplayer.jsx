@@ -14,7 +14,7 @@ function Multiplayer() {
 
     // Configuration d'axios avec le token
     const api = axios.create({
-        baseURL: 'http://localhost:8000',
+        baseURL: 'https://examen-symfony.onrender.com',
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'

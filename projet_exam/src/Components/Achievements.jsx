@@ -19,7 +19,7 @@ const Achievements = ({ userId }) => {
                 console.log('Token:', token);
                 console.log('Fetching achievements for user:', userId);
 
-                const response = await axios.get(`http://localhost:8000/api/user/${userId}/achievements`, {
+                const response = await axios.get(`https://examen-symfony.onrender.com/api/user/${userId}/achievements`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'

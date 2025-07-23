@@ -31,7 +31,7 @@ function Profile() {
         const fetchData = async () => {
             try {
                 // Récupérer les informations de l'utilisateur
-                const userRes = await axios.get(`http://localhost:8000/api/users/${userId}`, {
+                const userRes = await axios.get(`https://examen-symfony.onrender.com/api/users/${userId}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setUser(userRes.data);
@@ -42,7 +42,7 @@ function Profile() {
                 });
 
                 // Récupérer les leçons avec leur statut de déverrouillage
-                const lessonsRes = await axios.get(`http://localhost:8000/api/user/${userId}/lessons-unlocked`, {
+                const lessonsRes = await axios.get(`https://examen-symfony.onrender.com/api/user/${userId}/lessons-unlocked`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
                 setProgressions(lessonsRes.data);
@@ -92,7 +92,7 @@ function Profile() {
                 updateData.password = editedUser.password;
             }
 
-            await axios.patch(`http://localhost:8000/api/users/${userId}`, updateData, {
+            await axios.patch(`https://examen-symfony.onrender.com/api/users/${userId}`, updateData, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
