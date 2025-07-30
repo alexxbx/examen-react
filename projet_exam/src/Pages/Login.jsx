@@ -15,7 +15,7 @@ const LoginForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('https://examen-symfony.onrender.com/api/login_check', form);
+            const res = await axios.post('https://examen-symfony.onrender.com/api/login', form);
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('userId', res.data.user.id);
             setMessage('✅ Connexion réussie !');
